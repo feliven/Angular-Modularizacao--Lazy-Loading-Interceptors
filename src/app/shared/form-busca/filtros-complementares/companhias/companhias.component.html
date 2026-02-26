@@ -1,7 +1,7 @@
 <section class="paradas">
   <app-label texto="Companhias" />
   <div class="checkbox-group">
-    @for (opcao of companhias; track opcao) {
+    @for (opcao of companhias; track opcao.id) {
       <p>
         <mat-checkbox
           color="primary"

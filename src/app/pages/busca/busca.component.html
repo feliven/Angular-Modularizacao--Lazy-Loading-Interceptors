@@ -29,7 +29,7 @@
             />
           </app-card>
         </div>
-        @for (passagem of passagens; track passagem) {
+        @for (passagem of passagens; track $index) {
           <app-passagem [passagem]="passagem"></app-passagem>
         }
       </div>

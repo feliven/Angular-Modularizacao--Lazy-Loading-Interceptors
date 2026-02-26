@@ -1,7 +1,7 @@
 <section class="paradas">
   <app-label texto="Paradas" />
   <div class="checkbox-group">
-    @for (opcao of opcoes; track opcao) {
+    @for (opcao of opcoes; track $index) {
       <p>
         <mat-checkbox
           color="primary"

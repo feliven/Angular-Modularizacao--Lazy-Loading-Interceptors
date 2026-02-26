@@ -43,7 +43,7 @@
           {{ passagem().total | currency: "BRL" }}
         </div>
         <div class="detalhes">
-          @for (orcamento of passagem().orcamento; track orcamento) {
+          @for (orcamento of passagem().orcamento; track $index) {
             <ul>
               <li>
                 <p>{{ orcamento.descricao }}</p>

@@ -19,7 +19,7 @@
     autoActiveFirstOption
     #auto="matAutocomplete"
   >
-    @for (estado of filteredOptions$ | async; track estado) {
+    @for (estado of filteredOptions$ | async; track estado.id) {
       <mat-option [value]="estado">
         {{ estado.nome }}
       </mat-option>

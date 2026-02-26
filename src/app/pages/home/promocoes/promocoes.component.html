@@ -1,5 +1,5 @@
 <div class="card-wrapper">
-  @for (item of promocoes; track item) {
+  @for (item of promocoes; track $index) {
     <app-card-busca [promocao]="item" />
   }
 </div>
