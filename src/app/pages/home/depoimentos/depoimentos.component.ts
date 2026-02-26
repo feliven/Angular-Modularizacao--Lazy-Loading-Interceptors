@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  signal,
 } from '@angular/core';
 import { DepoimentoService } from 'src/app/core/services/depoimento.service';
 import { Depoimento } from 'src/app/core/types/type';
@@ -12,18 +13,19 @@ import { CardDepoimentoComponent } from 'src/app/shared/card-depoimento/card-dep
   templateUrl: './depoimentos.component.html',
   styleUrls: ['./depoimentos.component.scss'],
   imports: [CardDepoimentoComponent],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DepoimentosComponent {
-  depoimentos: Depoimento[] = [];
+  depoimentos = signal<Depoimento[]>([]);
+
   constructor(
     private service: DepoimentoService,
-    private cdr: ChangeDetectorRef,
+    // private cdr: ChangeDetectorRef,
   ) {}
   ngOnInit(): void {
     this.service.listar().subscribe((res) => {
-      this.depoimentos = res;
-      this.cdr.markForCheck();
+      this.depoimentos.set(res);
+      // this.cdr.markForCheck();
     });
   }
 }

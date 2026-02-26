@@ -3,6 +3,7 @@ import {
   ChangeDetectorRef,
   Component,
   OnInit,
+  signal,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -27,10 +28,10 @@ export class PerfilComponent implements OnInit {
   textoBotao = 'ATUALIZAR';
   perfilComponent = true;
 
-  cadastro!: PessoaUsuaria;
-  token: string = '';
-  nome: string = '';
+  cadastro = signal<PessoaUsuaria | null>(null);
   form!: FormGroup<any> | null;
+  token: string = '';
+  nome = signal<string>('');
 
   constructor(
     private cadastroService: CadastroService,
@@ -43,30 +44,25 @@ export class PerfilComponent implements OnInit {
 
   ngOnInit() {
     this.token = this.tokenService.retornarToken();
-    this.cdr.markForCheck();
-
     this.cadastroService.buscarCadastro().subscribe((cadastro) => {
-      console.log('cadastro:', cadastro);
-      this.cadastro = cadastro;
-      this.nome = cadastro.nome;
-      this.cdr.markForCheck();
+      this.cadastro.set(cadastro);
+      this.nome.set(cadastro.nome);
       this.carregarFormulario();
     });
   }
 
   carregarFormulario() {
     this.form = this.formularioService.getCadastro();
-    this.cdr.markForCheck();
     this.form?.patchValue({
-      nome: this.cadastro.nome,
-      nascimento: this.cadastro.nascimento,
-      cpf: this.cadastro.cpf,
-      cidade: this.cadastro.cidade,
-      email: this.cadastro.email,
-      senha: this.cadastro.senha,
-      genero: this.cadastro.genero,
-      telefone: this.cadastro.telefone,
-      estado: this.cadastro.estado,
+      nome: this.cadastro()?.nome,
+      nascimento: this.cadastro()?.nascimento,
+      cpf: this.cadastro()?.cpf,
+      cidade: this.cadastro()?.cidade,
+      email: this.cadastro()?.email,
+      senha: this.cadastro()?.senha,
+      genero: this.cadastro()?.genero,
+      telefone: this.cadastro()?.telefone,
+      estado: this.cadastro()?.estado,
     });
   }
 
@@ -87,7 +83,6 @@ export class PerfilComponent implements OnInit {
       next: () => {
         alert('Cadastro editado com sucesso');
         this.router.navigate(['/']);
-        this.cdr.markForCheck();
       },
       error: (err) => {
         console.log(err);

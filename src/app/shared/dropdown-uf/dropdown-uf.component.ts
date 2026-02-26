@@ -1,9 +1,9 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   OnInit,
   input,
+  signal,
 } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
@@ -38,32 +38,30 @@ export class DropdownUfComponent implements OnInit {
   readonly control = input.required<FormControl>();
   readonly placeholder = input<string>('');
 
-  unidadesFederativas: UnidadeFederativa[] = [];
+  unidadesFederativas = signal<UnidadeFederativa[]>([]);
 
   filteredOptions$?: Observable<UnidadeFederativa[]>;
 
   constructor(
     private unidadeFederativaService: UnidadeFederativaService,
-    private cdr: ChangeDetectorRef,
+    // private cdr: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
     this.unidadeFederativaService.listar().subscribe((dados) => {
-      this.unidadesFederativas = dados;
-      this.cdr.markForCheck();
-      console.log(this.unidadesFederativas);
+      this.unidadesFederativas.set(dados); // Updating a signal automatically notifies Angular
     });
     this.filteredOptions$ = this.control().valueChanges.pipe(
       startWith(''),
       map((value) => this.filtrarUfs(value)),
     );
-    this.cdr.markForCheck();
+    // this.cdr.markForCheck();
   }
 
   filtrarUfs(value: string | UnidadeFederativa): UnidadeFederativa[] {
     const nomeUf = typeof value === 'string' ? value : value?.nome;
     const valorFiltrado = nomeUf?.toLowerCase();
-    const result = this.unidadesFederativas.filter((estado) =>
+    const result = this.unidadesFederativas().filter((estado) =>
       estado.nome.toLowerCase().includes(valorFiltrado ?? ''),
     );
     return result;
