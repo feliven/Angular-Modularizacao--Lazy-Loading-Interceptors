@@ -1,4 +1,10 @@
-import { Component, OnInit, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+  input,
+} from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Observable, map, startWith } from 'rxjs';
@@ -24,6 +30,7 @@ import { FormBuscaService } from 'src/app/core/services/form-busca.service';
     MatInputModule,
     MatIconModule,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DropdownUfComponent implements OnInit {
   readonly label = input<string>('');
@@ -35,17 +42,22 @@ export class DropdownUfComponent implements OnInit {
 
   filteredOptions$?: Observable<UnidadeFederativa[]>;
 
-  constructor(private unidadeFederativaService: UnidadeFederativaService) {}
+  constructor(
+    private unidadeFederativaService: UnidadeFederativaService,
+    private cdr: ChangeDetectorRef,
+  ) {}
 
   ngOnInit(): void {
     this.unidadeFederativaService.listar().subscribe((dados) => {
       this.unidadesFederativas = dados;
+      this.cdr.markForCheck();
       console.log(this.unidadesFederativas);
     });
     this.filteredOptions$ = this.control().valueChanges.pipe(
       startWith(''),
       map((value) => this.filtrarUfs(value)),
     );
+    this.cdr.markForCheck();
   }
 
   filtrarUfs(value: string | UnidadeFederativa): UnidadeFederativa[] {

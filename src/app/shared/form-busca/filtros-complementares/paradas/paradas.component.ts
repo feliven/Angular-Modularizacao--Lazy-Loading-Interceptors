@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+} from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
@@ -14,6 +19,7 @@ interface OpcoesDeParada {
   templateUrl: './paradas.component.html',
   styleUrls: ['./paradas.component.scss'],
   imports: [LabelComponent, MatCheckboxModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ParadasComponent implements OnInit {
   opcoesSelecionada: OpcoesDeParada | null = null;
@@ -37,7 +43,10 @@ export class ParadasComponent implements OnInit {
   ];
   conexoesControl: FormControl<number | null>;
 
-  constructor(private formBuscaService: FormBuscaService) {
+  constructor(
+    private formBuscaService: FormBuscaService,
+    private cdr: ChangeDetectorRef,
+  ) {
     this.conexoesControl =
       this.formBuscaService.obterControle<number>('conexoes');
   }
@@ -45,6 +54,7 @@ export class ParadasComponent implements OnInit {
     this.conexoesControl.valueChanges.subscribe((value) => {
       if (value === null) {
         this.opcoesSelecionada = null;
+        this.cdr.markForCheck();
       }
     });
   }

@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import {
   FormBuilder,
@@ -26,6 +31,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatInputModule,
     MatButtonModule,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
@@ -34,6 +40,7 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authService: AutenticacaoService,
     private router: Router,
+    private cdr: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
@@ -52,6 +59,7 @@ export class LoginComponent implements OnInit {
           console.log('Autenticado com sucesso', value);
           this.router.navigateByUrl('/');
           this.loginForm.reset();
+          // this.cdr.markForCheck();
         },
         error: (err) => {
           console.log('Problema na autenticação', err);

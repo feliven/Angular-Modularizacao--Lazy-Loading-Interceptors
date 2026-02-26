@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { CadastroService } from 'src/app/core/services/cadastro.service';
 import { FormularioService } from 'src/app/core/services/formulario.service';
@@ -11,12 +15,14 @@ import { FormBaseComponent } from 'src/app/shared/form-base/form-base.component'
   templateUrl: './cadastro.component.html',
   styleUrls: ['./cadastro.component.scss'],
   imports: [BannerComponent, FormBaseComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CadastroComponent {
   constructor(
     private formularioService: FormularioService,
     private cadastroService: CadastroService,
     private router: Router,
+    private cdr: ChangeDetectorRef,
   ) {}
 
   cadastrar() {
@@ -29,6 +35,7 @@ export class CadastroComponent {
         next: (value) => {
           console.log('Cadastro realizado com sucesso', value);
           this.router.navigate(['/login']);
+          // this.cdr.markForCheck();
         },
         error: (err) => {
           console.log('Erro ao realizar cadastro', err);

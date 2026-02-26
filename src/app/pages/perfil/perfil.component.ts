@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+} from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -15,6 +20,7 @@ import { FormBaseComponent } from 'src/app/shared/form-base/form-base.component'
   templateUrl: './perfil.component.html',
   styleUrls: ['./perfil.component.scss'],
   imports: [BannerComponent, FormBaseComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PerfilComponent implements OnInit {
   titulo = 'Olá, ';
@@ -32,19 +38,25 @@ export class PerfilComponent implements OnInit {
     private formularioService: FormularioService,
     private userService: UserService,
     private router: Router,
+    private cdr: ChangeDetectorRef,
   ) {}
 
   ngOnInit() {
     this.token = this.tokenService.retornarToken();
+    this.cdr.markForCheck();
+
     this.cadastroService.buscarCadastro().subscribe((cadastro) => {
+      console.log('cadastro:', cadastro);
       this.cadastro = cadastro;
       this.nome = cadastro.nome;
+      this.cdr.markForCheck();
       this.carregarFormulario();
     });
   }
 
   carregarFormulario() {
     this.form = this.formularioService.getCadastro();
+    this.cdr.markForCheck();
     this.form?.patchValue({
       nome: this.cadastro.nome,
       nascimento: this.cadastro.nascimento,
@@ -75,6 +87,7 @@ export class PerfilComponent implements OnInit {
       next: () => {
         alert('Cadastro editado com sucesso');
         this.router.navigate(['/']);
+        this.cdr.markForCheck();
       },
       error: (err) => {
         console.log(err);

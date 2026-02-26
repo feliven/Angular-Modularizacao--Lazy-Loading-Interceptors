@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+} from '@angular/core';
 import { take } from 'rxjs';
 
 import { DadosBusca, Destaques, Passagem } from 'src/app/core/types/type';
@@ -25,6 +30,7 @@ import { PassagemComponent } from 'src/app/shared/passagem/passagem.component';
     CardComponent,
     PassagemComponent,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BuscaComponent implements OnInit {
   passagens: Passagem[] = [];
@@ -33,6 +39,7 @@ export class BuscaComponent implements OnInit {
   constructor(
     private passagensService: PassagensService,
     private formBuscaService: FormBuscaService,
+    private cdr: ChangeDetectorRef,
   ) {}
   ngOnInit(): void {
     const buscaPadrao: DadosBusca = {
@@ -51,6 +58,7 @@ export class BuscaComponent implements OnInit {
       .pipe(take(1))
       .subscribe((res) => {
         this.passagens = res.resultado;
+        this.cdr.markForCheck();
         this.formBuscaService.formBusca.patchValue({
           precoMin: res.precoMin,
           precoMax: res.precoMax,
@@ -70,5 +78,6 @@ export class BuscaComponent implements OnInit {
     this.destaques = this.passagensService.obterPassagensDestaques(
       this.passagens,
     );
+    this.cdr.markForCheck();
   }
 }
