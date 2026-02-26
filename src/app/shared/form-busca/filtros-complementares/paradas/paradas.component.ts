@@ -19,7 +19,7 @@ interface OpcoesDeParada {
   templateUrl: './paradas.component.html',
   styleUrls: ['./paradas.component.scss'],
   imports: [LabelComponent, MatCheckboxModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ParadasComponent implements OnInit {
   opcoesSelecionada: OpcoesDeParada | null = null;
@@ -45,7 +45,7 @@ export class ParadasComponent implements OnInit {
 
   constructor(
     private formBuscaService: FormBuscaService,
-    private cdr: ChangeDetectorRef,
+    // private cdr: ChangeDetectorRef,
   ) {
     this.conexoesControl =
       this.formBuscaService.obterControle<number>('conexoes');
@@ -54,7 +54,7 @@ export class ParadasComponent implements OnInit {
     this.conexoesControl.valueChanges.subscribe((value) => {
       if (value === null) {
         this.opcoesSelecionada = null;
-        this.cdr.markForCheck();
+        // this.cdr.markForCheck();
       }
     });
   }

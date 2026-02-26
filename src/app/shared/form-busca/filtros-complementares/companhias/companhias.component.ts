@@ -18,7 +18,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
   templateUrl: './companhias.component.html',
   styleUrls: ['./companhias.component.scss'],
   imports: [LabelComponent, MatCheckboxModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CompanhiasComponent implements OnInit {
   companhias: Companhia[] = [];
@@ -29,22 +29,22 @@ export class CompanhiasComponent implements OnInit {
   constructor(
     private companhiaService: CompanhiaService,
     private formBuscaService: FormBuscaService,
-    private cdr: ChangeDetectorRef,
+    // private cdr: ChangeDetectorRef,
   ) {
     this.companhiasControl = this.formBuscaService.obterControle<
       number[] | null
     >('companhias');
-    this.cdr.markForCheck();
+    // this.cdr.markForCheck();
   }
   ngOnInit(): void {
     this.companhiaService.listar().subscribe((res) => {
       this.companhias = res;
-      this.cdr.markForCheck();
+      // this.cdr.markForCheck();
     });
     this.companhiasControl.valueChanges.subscribe((value) => {
       if (!value) {
         this.selecionadas = [];
-        this.cdr.markForCheck();
+        // this.cdr.markForCheck();
       }
     });
   }
@@ -52,7 +52,7 @@ export class CompanhiasComponent implements OnInit {
   alternarCompanhia(companhia: Companhia, checked: boolean): void {
     if (!checked) {
       this.selecionadas = this.selecionadas.filter((comp) => comp != companhia);
-      this.cdr.markForCheck();
+      // this.cdr.markForCheck();
     } else {
       this.selecionadas.push(companhia);
     }
