@@ -1,6 +1,7 @@
 import { Component, output } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 import { DadosBusca } from 'src/app/core/types/type';
 import { FormBuscaService } from 'src/app/core/services/form-busca.service';
@@ -21,6 +22,7 @@ import { CardComponent } from '../../card/card.component';
     PrecosComponent,
     CardComponent,
     MatIconModule,
+    MatButtonModule,
   ],
 })
 export class FiltrosComplementaresComponent {

@@ -21,6 +21,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-form-base',
@@ -36,6 +38,8 @@ import { MatInputModule } from '@angular/material/input';
     MatRadioModule,
     MatDividerModule,
     MatIconModule,
+    MatButtonModule,
+    MatCheckboxModule,
     ContainerComponent,
     DropdownUfComponent,
   ],

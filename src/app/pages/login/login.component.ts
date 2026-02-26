@@ -12,6 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 
 import { AutenticacaoService } from 'src/app/core/services/autenticacao.service';
 import { BannerComponent } from 'src/app/shared/banner/banner.component';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-login',
@@ -23,6 +24,7 @@ import { BannerComponent } from 'src/app/shared/banner/banner.component';
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
+    MatButtonModule,
   ],
 })
 export class LoginComponent implements OnInit {
