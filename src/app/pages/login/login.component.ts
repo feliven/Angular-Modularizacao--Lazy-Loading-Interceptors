@@ -1,5 +1,11 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
-import { Router } from '@angular/router';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+  inject,
+} from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
 import {
   FormBuilder,
   FormGroup,
@@ -20,6 +26,7 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrls: ['./login.component.scss'],
   imports: [
     ReactiveFormsModule,
+    RouterModule,
     BannerComponent,
     MatCardModule,
     MatFormFieldModule,

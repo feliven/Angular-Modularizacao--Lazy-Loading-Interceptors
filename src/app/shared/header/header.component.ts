@@ -1,6 +1,6 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
@@ -10,12 +10,11 @@ import { UserService } from 'src/app/core/services/user.service';
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
-  imports: [AsyncPipe, MatButtonModule, MatToolbarModule],
+  imports: [AsyncPipe, RouterModule, MatButtonModule, MatToolbarModule],
 })
 export class HeaderComponent {
   private userService = inject(UserService);
   private router = inject(Router);
-
 
   user$ = this.userService.retornarUser();
 
