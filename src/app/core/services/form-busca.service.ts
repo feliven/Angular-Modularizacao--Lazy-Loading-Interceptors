@@ -40,7 +40,7 @@ export class FormBuscaService {
         dataVolta.enable();
         dataVolta.setValidators([Validators.required]);
       }
-      dataVolta.updateValueAndValidity;
+      dataVolta.updateValueAndValidity();
     });
   }
 
