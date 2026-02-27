@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, OnInit, input, signal, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  input,
+  signal,
+  inject,
+} from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Observable, map, startWith } from 'rxjs';
@@ -10,7 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
 
 import { UnidadeFederativa } from 'src/app/core/types/type';
 import { UnidadeFederativaService } from 'src/app/core/services/unidade-federativa.service';
-import { FormBuscaService } from 'src/app/core/services/form-busca.service';
+// import { FormBuscaService } from 'src/app/core/services/form-busca.service';
 
 @Component({
   selector: 'app-dropdown-uf',

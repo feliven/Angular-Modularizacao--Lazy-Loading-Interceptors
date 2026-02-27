@@ -1,7 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { TokenService } from './token.service';
 import { jwtDecode } from 'node_modules/jwt-decode/build/cjs';
-('jwt-decode');
 import { BehaviorSubject } from 'rxjs';
 import { PessoaUsuaria } from '../types/type';
 

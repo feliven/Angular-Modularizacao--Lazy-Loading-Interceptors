@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, signal, inject } from '@angular/core';
+// import { ChangeDetectionStrategy, ChangeDetectorRef, Component, signal, inject, OnInit } from '@angular/core';
+import { Component, signal, inject, OnInit } from '@angular/core';
 import { DepoimentoService } from 'src/app/core/services/depoimento.service';
 import { Depoimento } from 'src/app/core/types/type';
 import { CardDepoimentoComponent } from 'src/app/shared/card-depoimento/card-depoimento.component';
@@ -10,7 +11,7 @@ import { CardDepoimentoComponent } from 'src/app/shared/card-depoimento/card-dep
   imports: [CardDepoimentoComponent],
   // changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DepoimentosComponent {
+export class DepoimentosComponent implements OnInit {
   private service = inject(DepoimentoService);
 
   depoimentos = signal<Depoimento[]>([]);
