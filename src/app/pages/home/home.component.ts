@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { PromocaoService } from 'src/app/core/services/promocao.service';
 import { BannerComponent } from 'src/app/shared/banner/banner.component';
@@ -26,11 +21,10 @@ import { DepoimentosComponent } from './depoimentos/depoimentos.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent implements OnInit {
-  constructor(
-    private servicoPromocao: PromocaoService,
-    private router: Router,
-    private cdr: ChangeDetectorRef,
-  ) {}
+  private servicoPromocao = inject(PromocaoService);
+  private router = inject(Router);
+  private cdr = inject(ChangeDetectorRef);
+
   ngOnInit(): void {
     this.servicoPromocao.listar().subscribe((resposta) => {
       console.log(resposta);

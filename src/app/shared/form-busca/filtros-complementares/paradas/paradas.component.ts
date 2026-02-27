@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
@@ -22,6 +17,8 @@ interface OpcoesDeParada {
   // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ParadasComponent implements OnInit {
+  private formBuscaService = inject(FormBuscaService);
+
   opcoesSelecionada: OpcoesDeParada | null = null;
   opcoes: OpcoesDeParada[] = [
     {
@@ -43,10 +40,7 @@ export class ParadasComponent implements OnInit {
   ];
   conexoesControl: FormControl<number | null>;
 
-  constructor(
-    private formBuscaService: FormBuscaService,
-    // private cdr: ChangeDetectorRef,
-  ) {
+  constructor() {
     this.conexoesControl =
       this.formBuscaService.obterControle<number>('conexoes');
   }

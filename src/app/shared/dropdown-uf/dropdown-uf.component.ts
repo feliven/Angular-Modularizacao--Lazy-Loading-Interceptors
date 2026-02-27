@@ -1,10 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnInit,
-  input,
-  signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, input, signal, inject } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Observable, map, startWith } from 'rxjs';
@@ -33,6 +27,8 @@ import { FormBuscaService } from 'src/app/core/services/form-busca.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DropdownUfComponent implements OnInit {
+  private unidadeFederativaService = inject(UnidadeFederativaService);
+
   readonly label = input<string>('');
   readonly iconePrefixo = input<string>('');
   readonly control = input.required<FormControl>();
@@ -41,11 +37,6 @@ export class DropdownUfComponent implements OnInit {
   unidadesFederativas = signal<UnidadeFederativa[]>([]);
 
   filteredOptions$?: Observable<UnidadeFederativa[]>;
-
-  constructor(
-    private unidadeFederativaService: UnidadeFederativaService,
-    // private cdr: ChangeDetectorRef,
-  ) {}
 
   ngOnInit(): void {
     this.unidadeFederativaService.listar().subscribe((dados) => {

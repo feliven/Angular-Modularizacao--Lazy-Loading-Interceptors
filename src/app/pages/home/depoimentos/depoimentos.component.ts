@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, signal, inject } from '@angular/core';
 import { DepoimentoService } from 'src/app/core/services/depoimento.service';
 import { Depoimento } from 'src/app/core/types/type';
 import { CardDepoimentoComponent } from 'src/app/shared/card-depoimento/card-depoimento.component';
@@ -16,12 +11,9 @@ import { CardDepoimentoComponent } from 'src/app/shared/card-depoimento/card-dep
   // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DepoimentosComponent {
-  depoimentos = signal<Depoimento[]>([]);
+  private service = inject(DepoimentoService);
 
-  constructor(
-    private service: DepoimentoService,
-    // private cdr: ChangeDetectorRef,
-  ) {}
+  depoimentos = signal<Depoimento[]>([]);
   ngOnInit(): void {
     this.service.listar().subscribe((res) => {
       this.depoimentos.set(res);

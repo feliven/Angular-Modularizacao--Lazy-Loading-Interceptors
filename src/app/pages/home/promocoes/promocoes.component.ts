@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, inject } from '@angular/core';
 import { PromocaoService } from 'src/app/core/services/promocao.service';
 import { Promocao } from 'src/app/core/types/type';
 import { CardBuscaComponent } from 'src/app/shared/card-busca/card-busca.component';
@@ -10,9 +10,9 @@ import { CardBuscaComponent } from 'src/app/shared/card-busca/card-busca.compone
   imports: [CardBuscaComponent],
 })
 export class PromocoesComponent implements OnInit {
-  promocoes = signal<Promocao[]>([]);
+  private service = inject(PromocaoService);
 
-  constructor(private service: PromocaoService) {}
+  promocoes = signal<Promocao[]>([]);
 
   ngOnInit(): void {
     this.service.listar().subscribe((res) => {

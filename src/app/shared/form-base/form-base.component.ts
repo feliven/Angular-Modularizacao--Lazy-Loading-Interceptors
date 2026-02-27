@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, input } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, input, inject } from '@angular/core';
 import {
   FormGroup,
   FormControl,
@@ -46,6 +46,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
   providers: [provideNativeDateAdapter()],
 })
 export class FormBaseComponent implements OnInit {
+  private formBuilder = inject(FormBuilder);
+  private formularioService = inject(FormularioService);
+
   cadastroForm!: FormGroup;
   estadoControl = new FormControl<UnidadeFederativa | null>(
     null,
@@ -57,11 +60,6 @@ export class FormBaseComponent implements OnInit {
   readonly textoBotao = input<string>('CADASTRAR');
   @Output() acaoClique: EventEmitter<any> = new EventEmitter<any>();
   @Output() sair: EventEmitter<any> = new EventEmitter<any>();
-
-  constructor(
-    private formBuilder: FormBuilder,
-    private formularioService: FormularioService,
-  ) {}
 
   ngOnInit() {
     this.cadastroForm = this.formBuilder.group({

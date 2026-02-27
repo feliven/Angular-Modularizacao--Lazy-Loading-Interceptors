@@ -1,4 +1,4 @@
-import { Component, output } from '@angular/core';
+import { Component, output, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -26,11 +26,10 @@ import { CardComponent } from '../../card/card.component';
   ],
 })
 export class FiltrosComplementaresComponent {
+  formBuscaService = inject(FormBuscaService);
+  private passagemService = inject(PassagensService);
+
   realizarBusca = output<DadosBusca>();
-  constructor(
-    public formBuscaService: FormBuscaService,
-    private passagemService: PassagensService,
-  ) {}
 
   busca() {
     if (!this.formBuscaService.formEstaValido) {

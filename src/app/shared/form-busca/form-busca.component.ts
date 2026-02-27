@@ -1,4 +1,4 @@
-import { Component, output } from '@angular/core';
+import { Component, output, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { DadosBusca } from 'src/app/core/types/type';
@@ -34,8 +34,9 @@ import { MatButtonModule } from '@angular/material/button';
   providers: [provideNativeDateAdapter()],
 })
 export class FormBuscaComponent {
+  formBuscaService = inject(FormBuscaService);
+
   realizarBusca = output<DadosBusca>();
-  constructor(public formBuscaService: FormBuscaService) {}
 
   buscar() {
     if (this.formBuscaService.formEstaValido) {
