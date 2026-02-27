@@ -12,7 +12,6 @@ describe('PrecosComponent', () => {
     });
     fixture = TestBed.createComponent(PrecosComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

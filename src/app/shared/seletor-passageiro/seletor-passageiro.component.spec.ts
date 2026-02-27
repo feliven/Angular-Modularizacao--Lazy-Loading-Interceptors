@@ -12,7 +12,6 @@ describe('SeletorPassageiroComponent', () => {
     });
     fixture = TestBed.createComponent(SeletorPassageiroComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

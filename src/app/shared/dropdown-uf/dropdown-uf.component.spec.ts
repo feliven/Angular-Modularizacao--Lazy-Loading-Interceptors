@@ -12,7 +12,6 @@ describe('DropdownUfComponent', () => {
     });
     fixture = TestBed.createComponent(DropdownUfComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

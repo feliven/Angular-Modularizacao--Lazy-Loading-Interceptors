@@ -12,7 +12,6 @@ describe('BotaoControleComponent', () => {
     });
     fixture = TestBed.createComponent(BotaoControleComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

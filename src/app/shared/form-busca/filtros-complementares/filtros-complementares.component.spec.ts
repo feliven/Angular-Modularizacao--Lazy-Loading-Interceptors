@@ -12,7 +12,6 @@ describe('FiltrosComplementaresComponent', () => {
     });
     fixture = TestBed.createComponent(FiltrosComplementaresComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

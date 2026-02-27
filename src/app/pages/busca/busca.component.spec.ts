@@ -12,7 +12,6 @@ describe('BuscaComponent', () => {
     });
     fixture = TestBed.createComponent(BuscaComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
