@@ -19,28 +19,37 @@ export class SeletorPassageiroComponent implements ControlValueAccessor {
   readonly titulo = input<string>('');
   readonly subtitulo = input<string>('');
 
-  value: number = 0;
-  onChange = (val: number) => {};
-  onTouch = () => {};
+  value = 0;
+  disabled = false;
+  onChange: (val: number) => void = () => undefined;
+  onTouch: () => void = () => undefined;
 
-  writeValue(val: any): void {
-    this.value = val;
+  writeValue(val: number | null): void {
+    this.value = val ?? 0;
   }
-  registerOnChange(fn: any): void {
+  registerOnChange(fn: (val: number) => void): void {
     this.onChange = fn;
   }
-  registerOnTouched(fn: any): void {
+  registerOnTouched(fn: () => void): void {
     this.onTouch = fn;
   }
-  setDisabledState?(isDisabled: boolean): void {}
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+  }
 
   incrementar() {
+    if (this.disabled) {
+      return;
+    }
     this.value += 1;
     this.onChange(this.value);
     this.onTouch();
   }
 
   decrementar() {
+    if (this.disabled) {
+      return;
+    }
     if (this.value > 0) {
       this.value -= 1;
       this.onChange(this.value);
