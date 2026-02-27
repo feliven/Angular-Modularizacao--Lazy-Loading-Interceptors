@@ -14,15 +14,20 @@ import routes from './app/app-routing.module';
 import {
   HTTP_INTERCEPTORS,
   provideHttpClient,
+  withInterceptors,
   withInterceptorsFromDi,
 } from '@angular/common/http';
 import { AutenticacaoInterceptor } from './app/core/interceptors/autenticacao.interceptor';
+import { errosInterceptor } from './app/core/erro/erros.interceptor';
 
 bootstrapApplication(AppComponent, {
   providers: [
     provideZonelessChangeDetection(),
     provideRouter(routes),
-    provideHttpClient(withInterceptorsFromDi()),
+    provideHttpClient(
+      withInterceptors([errosInterceptor]),
+      withInterceptorsFromDi(),
+    ),
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AutenticacaoInterceptor,
