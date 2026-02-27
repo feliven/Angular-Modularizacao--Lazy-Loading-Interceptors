@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, signal, inject } from '@angular/core';
+// import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, signal, inject } from '@angular/core';
+import { Component, OnInit, signal, inject } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -6,6 +7,7 @@ import { CadastroService } from 'src/app/core/services/cadastro.service';
 import { FormularioService } from 'src/app/core/services/formulario.service';
 import { TokenService } from 'src/app/core/services/token.service';
 import { UserService } from 'src/app/core/services/user.service';
+import { CadastroFormControls } from 'src/app/core/types/forms';
 import { PessoaUsuaria } from 'src/app/core/types/type';
 import { BannerComponent } from 'src/app/shared/banner/banner.component';
 import { FormBaseComponent } from 'src/app/shared/form-base/form-base.component';
@@ -15,7 +17,7 @@ import { FormBaseComponent } from 'src/app/shared/form-base/form-base.component'
   templateUrl: './perfil.component.html',
   styleUrls: ['./perfil.component.scss'],
   imports: [BannerComponent, FormBaseComponent],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PerfilComponent implements OnInit {
   private cadastroService = inject(CadastroService);
@@ -23,15 +25,15 @@ export class PerfilComponent implements OnInit {
   private formularioService = inject(FormularioService);
   private userService = inject(UserService);
   private router = inject(Router);
-  private cdr = inject(ChangeDetectorRef);
+  // private cdr = inject(ChangeDetectorRef);
 
   titulo = 'Olá, ';
   textoBotao = 'ATUALIZAR';
   perfilComponent = true;
 
   cadastro = signal<PessoaUsuaria | null>(null);
-  form!: FormGroup<any> | null;
-  token: string = '';
+  form!: FormGroup<CadastroFormControls> | null;
+  token = '';
   nome = signal<string>('');
 
   ngOnInit() {
@@ -59,16 +61,19 @@ export class PerfilComponent implements OnInit {
   }
 
   atualizar() {
-    const dadosAtualizados = {
-      nome: this.form?.value.nome,
-      nascimento: this.form?.value.nascimento,
-      cpf: this.form?.value.cpf,
-      telefone: this.form?.value.telefone,
-      email: this.form?.value.email,
-      senha: this.form?.value.senha,
-      genero: this.form?.value.genero,
-      cidade: this.form?.value.cidade,
-      estado: this.form?.value.estado,
+    const valorForm = this.form?.getRawValue();
+    if (!valorForm) return;
+
+    const dadosAtualizados: Partial<PessoaUsuaria> = {
+      nome: valorForm.nome ?? undefined,
+      nascimento: valorForm.nascimento ?? undefined,
+      cpf: valorForm.cpf ?? undefined,
+      telefone: valorForm.telefone ?? undefined,
+      email: valorForm.email ?? undefined,
+      senha: valorForm.senha ?? undefined,
+      genero: valorForm.genero ?? undefined,
+      cidade: valorForm.cidade ?? undefined,
+      estado: valorForm.estado ?? undefined,
     };
 
     this.cadastroService.editarCadastro(dadosAtualizados).subscribe({

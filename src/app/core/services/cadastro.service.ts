@@ -23,7 +23,9 @@ export class CadastroService {
     return this.http.get<PessoaUsuaria>(`${this.apiUrl}/auth/perfil`);
   }
 
-  editarCadastro(pessoaUsuaria: PessoaUsuaria): Observable<PessoaUsuaria> {
+  editarCadastro(
+    pessoaUsuaria: Partial<PessoaUsuaria>,
+  ): Observable<PessoaUsuaria> {
     return this.http.patch<PessoaUsuaria>(
       `${this.apiUrl}/auth/perfil`,
       pessoaUsuaria,
