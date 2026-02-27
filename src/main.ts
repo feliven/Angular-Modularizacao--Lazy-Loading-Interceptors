@@ -1,7 +1,11 @@
 import { bootstrapApplication } from '@angular/platform-browser';
+// import {
+//   provideCheckNoChangesConfig,
+//   provideZoneChangeDetection,
+//   provideZonelessChangeDetection,
+// } from '@angular/core';
 import {
   provideCheckNoChangesConfig,
-  provideZoneChangeDetection,
   provideZonelessChangeDetection,
 } from '@angular/core';
 import { AppComponent } from './app/app.component';
