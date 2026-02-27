@@ -1,4 +1,11 @@
-import { Component, EventEmitter, OnInit, Output, input, inject } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  input,
+  inject,
+} from '@angular/core';
 import {
   FormGroup,
   FormControl,
@@ -8,6 +15,7 @@ import {
 } from '@angular/forms';
 
 import { FormularioService } from 'src/app/core/services/formulario.service';
+import { CadastroFormControls } from 'src/app/core/types/forms';
 import { UnidadeFederativa } from 'src/app/core/types/type';
 import { FormValidations } from '../form-validations';
 import { ContainerComponent } from '../container/container.component';
@@ -49,7 +57,7 @@ export class FormBaseComponent implements OnInit {
   private formBuilder = inject(FormBuilder);
   private formularioService = inject(FormularioService);
 
-  cadastroForm!: FormGroup;
+  cadastroForm!: FormGroup<CadastroFormControls>;
   estadoControl = new FormControl<UnidadeFederativa | null>(
     null,
     Validators.required,
@@ -58,37 +66,39 @@ export class FormBaseComponent implements OnInit {
   readonly perfilComponent = input<boolean>(false);
   readonly titulo = input<string>('Crie sua conta');
   readonly textoBotao = input<string>('CADASTRAR');
-  @Output() acaoClique: EventEmitter<any> = new EventEmitter<any>();
-  @Output() sair: EventEmitter<any> = new EventEmitter<any>();
+  @Output() acaoClique: EventEmitter<void> = new EventEmitter<void>();
+  @Output() sair: EventEmitter<void> = new EventEmitter<void>();
 
   ngOnInit() {
-    this.cadastroForm = this.formBuilder.group({
-      nome: [null, Validators.required],
-      nascimento: [null, [Validators.required]],
-      cpf: [null, [Validators.required]],
-      cidade: [null, Validators.required],
-      email: [null, [Validators.required, Validators.email]],
-      senha: [null, [Validators.required, Validators.minLength(3)]],
-      genero: ['outro'],
-      telefone: [null, Validators.required],
+    this.cadastroForm = this.formBuilder.group<CadastroFormControls>({
+      nome: new FormControl<string | null>(null, Validators.required),
+      nascimento: new FormControl<string | null>(null, [Validators.required]),
+      cpf: new FormControl<string | null>(null, [Validators.required]),
+      cidade: new FormControl<string | null>(null, Validators.required),
+      email: new FormControl<string | null>(null, [
+        Validators.required,
+        Validators.email,
+      ]),
+      senha: new FormControl<string | null>(null, [
+        Validators.required,
+        Validators.minLength(3),
+      ]),
+      genero: new FormControl<string | null>('outro'),
+      telefone: new FormControl<string | null>(null, Validators.required),
       estado: this.estadoControl,
-      confirmarEmail: [
-        null,
-        [
-          Validators.required,
-          Validators.email,
-          FormValidations.equalTo('email'),
-        ],
-      ],
-      confirmarSenha: [
-        null,
-        [
-          Validators.required,
-          Validators.minLength(3),
-          FormValidations.equalTo('senha'),
-        ],
-      ],
-      aceitarTermos: [false, [Validators.requiredTrue]],
+      confirmarEmail: new FormControl<string | null>(null, [
+        Validators.required,
+        Validators.email,
+        FormValidations.equalTo('email'),
+      ]),
+      confirmarSenha: new FormControl<string | null>(null, [
+        Validators.required,
+        Validators.minLength(3),
+        FormValidations.equalTo('senha'),
+      ]),
+      aceitarTermos: new FormControl<boolean | null>(false, [
+        Validators.requiredTrue,
+      ]),
     });
 
     if (this.perfilComponent()) {
