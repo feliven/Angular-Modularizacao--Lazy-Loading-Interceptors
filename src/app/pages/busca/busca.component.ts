@@ -62,6 +62,8 @@ export class BuscaComponent implements OnInit {
     this.passagensService.getPassagens(ev).subscribe((res) => {
       console.log(res);
       this.passagens = res.resultado;
+      this.obterDestaques();
+      this.cdr.markForCheck();
     });
   }
   obterDestaques() {
