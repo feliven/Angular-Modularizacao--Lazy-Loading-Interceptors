@@ -3,11 +3,11 @@
   <div class="labels">
     <div class="label-container">
       <label for="preco-minimo" class="name-label">De</label>
-      <p>{{ passagemService.precoMin | currency: "BRL" }}</p>
+      <p>{{ precoMin.value | currency: "BRL" }}</p>
     </div>
     <div class="label-container">
       <label for="preco-maximo">Até</label>
-      <p>{{ passagemService.precoMax | currency: "BRL" }}</p>
+      <p>{{ precoMax.value | currency: "BRL" }}</p>
     </div>
   </div>
   <mat-slider [min]="passagemService.precoMin" [max]="passagemService.precoMax">

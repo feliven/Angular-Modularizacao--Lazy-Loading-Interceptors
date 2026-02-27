@@ -1,4 +1,9 @@
-import { Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+} from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatSliderModule } from '@angular/material/slider';
@@ -13,7 +18,7 @@ import { LabelComponent } from '../label/label.component';
   styleUrls: ['./precos.component.scss'],
   imports: [ReactiveFormsModule, CurrencyPipe, LabelComponent, MatSliderModule],
 })
-export class PrecosComponent {
+export class PrecosComponent implements OnInit {
   precoMin: FormControl<number>;
   precoMax: FormControl<number>;
 
@@ -23,5 +28,10 @@ export class PrecosComponent {
   ) {
     this.precoMin = this.formBuscaService.obterControle<number>('precoMin');
     this.precoMax = this.formBuscaService.obterControle<number>('precoMax');
+  }
+
+  ngOnInit(): void {
+    this.precoMin.valueChanges.subscribe(() => this.cdr.markForCheck());
+    this.precoMax.valueChanges.subscribe(() => this.cdr.markForCheck());
   }
 }
