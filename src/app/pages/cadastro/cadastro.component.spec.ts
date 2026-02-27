@@ -12,7 +12,6 @@ describe('CadastroComponent', () => {
     });
     fixture = TestBed.createComponent(CadastroComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

@@ -12,7 +12,6 @@ describe('FormBuscaComponent', () => {
     });
     fixture = TestBed.createComponent(FormBuscaComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

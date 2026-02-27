@@ -12,7 +12,6 @@ describe('CardBuscaComponent', () => {
     });
     fixture = TestBed.createComponent(CardBuscaComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

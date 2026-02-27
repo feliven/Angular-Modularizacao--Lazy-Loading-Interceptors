@@ -12,7 +12,6 @@ describe('PassagemComponent', () => {
     });
     fixture = TestBed.createComponent(PassagemComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
