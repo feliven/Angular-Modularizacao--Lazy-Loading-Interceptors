@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -15,15 +20,18 @@ import { FormBaseComponent } from 'src/app/shared/form-base/form-base.component'
   templateUrl: './perfil.component.html',
   styleUrls: ['./perfil.component.scss'],
   imports: [BannerComponent, FormBaseComponent],
+  // TODO: This component has been partially migrated to be zoneless-compatible.
+  // After testing, this should be updated to ChangeDetectionStrategy.OnPush.
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class PerfilComponent implements OnInit {
-  titulo = 'Olá, ';
-  textoBotao = 'ATUALIZAR';
+  titulo = signal('Olá, ');
+  textoBotao = signal('ATUALIZAR');
   perfilComponent = true;
 
   cadastro!: PessoaUsuaria;
   token: string = '';
-  nome: string = '';
+  nome = signal('');
   form!: FormGroup<any> | null;
 
   constructor(
@@ -38,7 +46,7 @@ export class PerfilComponent implements OnInit {
     this.token = this.tokenService.retornarToken();
     this.cadastroService.buscarCadastro().subscribe((cadastro) => {
       this.cadastro = cadastro;
-      this.nome = cadastro.nome;
+      this.nome.set(cadastro.nome);
       this.carregarFormulario();
     });
   }

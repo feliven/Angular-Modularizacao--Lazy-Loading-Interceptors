@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { RouterOutlet } from '@angular/router';
@@ -9,6 +9,9 @@ import { RouterOutlet } from '@angular/router';
   styleUrls: ['./app.component.scss'],
 
   imports: [RouterOutlet, HeaderComponent, FooterComponent],
+  // TODO: This component has been partially migrated to be zoneless-compatible.
+  // After testing, this should be updated to ChangeDetectionStrategy.OnPush.
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class AppComponent {
   title = 'jornada-milhas';

@@ -1,4 +1,11 @@
-import { Component, EventEmitter, OnInit, Output, input } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  input,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import {
   FormGroup,
   FormControl,
@@ -44,6 +51,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     DropdownUfComponent,
   ],
   providers: [provideNativeDateAdapter()],
+  // TODO: This component has been partially migrated to be zoneless-compatible.
+  // After testing, this should be updated to ChangeDetectionStrategy.OnPush.
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class FormBaseComponent implements OnInit {
   cadastroForm!: FormGroup;

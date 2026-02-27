@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
@@ -14,6 +19,9 @@ interface OpcoesDeParada {
   templateUrl: './paradas.component.html',
   styleUrls: ['./paradas.component.scss'],
   imports: [LabelComponent, MatCheckboxModule],
+  // TODO: This component has been partially migrated to be zoneless-compatible.
+  // After testing, this should be updated to ChangeDetectionStrategy.OnPush.
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class ParadasComponent implements OnInit {
   opcoesSelecionada: OpcoesDeParada | null = null;
@@ -37,7 +45,10 @@ export class ParadasComponent implements OnInit {
   ];
   conexoesControl: FormControl<number | null>;
 
-  constructor(private formBuscaService: FormBuscaService) {
+  constructor(
+    private formBuscaService: FormBuscaService,
+    private cdr: ChangeDetectorRef,
+  ) {
     this.conexoesControl =
       this.formBuscaService.obterControle<number>('conexoes');
   }
@@ -45,6 +56,7 @@ export class ParadasComponent implements OnInit {
     this.conexoesControl.valueChanges.subscribe((value) => {
       if (value === null) {
         this.opcoesSelecionada = null;
+        this.cdr.markForCheck();
       }
     });
   }
@@ -55,12 +67,14 @@ export class ParadasComponent implements OnInit {
       this.formBuscaService.formBusca.patchValue({
         conexoes: null,
       });
+      this.cdr.markForCheck();
       return;
     }
     this.opcoesSelecionada = opcao;
     this.formBuscaService.formBusca.patchValue({
       conexoes: Number(opcao.value),
     });
+    this.cdr.markForCheck();
   }
 
   paradaSelecionada(opcao: OpcoesDeParada): boolean {

@@ -17,6 +17,9 @@ import { LabelComponent } from '../label/label.component';
   templateUrl: './precos.component.html',
   styleUrls: ['./precos.component.scss'],
   imports: [ReactiveFormsModule, CurrencyPipe, LabelComponent, MatSliderModule],
+  // TODO: This component has been partially migrated to be zoneless-compatible.
+  // After testing, this should be updated to ChangeDetectionStrategy.OnPush.
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class PrecosComponent implements OnInit {
   precoMin: FormControl<number>;
@@ -25,6 +28,7 @@ export class PrecosComponent implements OnInit {
   constructor(
     public passagemService: PassagensService,
     private formBuscaService: FormBuscaService,
+    private cdr: ChangeDetectorRef,
   ) {
     this.precoMin = this.formBuscaService.obterControle<number>('precoMin');
     this.precoMax = this.formBuscaService.obterControle<number>('precoMax');

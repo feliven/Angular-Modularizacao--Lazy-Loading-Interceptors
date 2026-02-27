@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PromocaoService } from 'src/app/core/services/promocao.service';
 import { BannerComponent } from 'src/app/shared/banner/banner.component';
@@ -18,6 +18,9 @@ import { DepoimentosComponent } from './depoimentos/depoimentos.component';
     PromocoesComponent,
     DepoimentosComponent,
   ],
+  // TODO: This component has been partially migrated to be zoneless-compatible.
+  // After testing, this should be updated to ChangeDetectionStrategy.OnPush.
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class HomeComponent implements OnInit {
   constructor(

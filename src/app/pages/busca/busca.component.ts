@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { take } from 'rxjs';
 
 import { DadosBusca, Destaques, Passagem } from 'src/app/core/types/type';
@@ -25,10 +30,13 @@ import { PassagemComponent } from 'src/app/shared/passagem/passagem.component';
     CardComponent,
     PassagemComponent,
   ],
+  // TODO: This component has been partially migrated to be zoneless-compatible.
+  // After testing, this should be updated to ChangeDetectionStrategy.OnPush.
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class BuscaComponent implements OnInit {
-  passagens: Passagem[] = [];
-  destaques?: Destaques;
+  passagens = signal<Passagem[]>([]);
+  destaques = signal<Destaques | undefined>(undefined);
 
   constructor(
     private passagensService: PassagensService,
@@ -50,7 +58,7 @@ export class BuscaComponent implements OnInit {
       .getPassagens(busca)
       .pipe(take(1))
       .subscribe((res) => {
-        this.passagens = res.resultado;
+        this.passagens.set(res.resultado);
         this.formBuscaService.formBusca.patchValue({
           precoMin: res.precoMin,
           precoMax: res.precoMax,
@@ -61,14 +69,13 @@ export class BuscaComponent implements OnInit {
   busca(ev: DadosBusca) {
     this.passagensService.getPassagens(ev).subscribe((res) => {
       console.log(res);
-      this.passagens = res.resultado;
+      this.passagens.set(res.resultado);
       this.obterDestaques();
-      this.cdr.markForCheck();
     });
   }
   obterDestaques() {
-    this.destaques = this.passagensService.obterPassagensDestaques(
-      this.passagens,
+    this.destaques.set(
+      this.passagensService.obterPassagensDestaques(this.passagens()),
     );
   }
 }

@@ -1,4 +1,4 @@
-import { Component, output } from '@angular/core';
+import { Component, output, ChangeDetectionStrategy } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { DadosBusca } from 'src/app/core/types/type';
@@ -32,6 +32,9 @@ import { MatButtonModule } from '@angular/material/button';
     MatButtonModule,
   ],
   providers: [provideNativeDateAdapter()],
+  // TODO: This component has been partially migrated to be zoneless-compatible.
+  // After testing, this should be updated to ChangeDetectionStrategy.OnPush.
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class FormBuscaComponent {
   realizarBusca = output<DadosBusca>();

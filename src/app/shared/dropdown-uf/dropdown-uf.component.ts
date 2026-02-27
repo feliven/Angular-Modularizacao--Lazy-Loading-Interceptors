@@ -1,4 +1,10 @@
-import { Component, OnInit, input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  input,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Observable, map, startWith } from 'rxjs';
@@ -24,6 +30,9 @@ import { FormBuscaService } from 'src/app/core/services/form-busca.service';
     MatInputModule,
     MatIconModule,
   ],
+  // TODO: This component has been partially migrated to be zoneless-compatible.
+  // After testing, this should be updated to ChangeDetectionStrategy.OnPush.
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class DropdownUfComponent implements OnInit {
   readonly label = input<string>('');
@@ -35,12 +44,16 @@ export class DropdownUfComponent implements OnInit {
 
   filteredOptions$?: Observable<UnidadeFederativa[]>;
 
-  constructor(private unidadeFederativaService: UnidadeFederativaService) {}
+  constructor(
+    private unidadeFederativaService: UnidadeFederativaService,
+    private cdr: ChangeDetectorRef,
+  ) {}
 
   ngOnInit(): void {
     this.unidadeFederativaService.listar().subscribe((dados) => {
       this.unidadesFederativas = dados;
       console.log(this.unidadesFederativas);
+      this.cdr.markForCheck();
     });
     this.filteredOptions$ = this.control().valueChanges.pipe(
       startWith(''),

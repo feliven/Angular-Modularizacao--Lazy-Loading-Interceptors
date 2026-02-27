@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { DepoimentoService } from 'src/app/core/services/depoimento.service';
 import { Depoimento } from 'src/app/core/types/type';
 import { CardDepoimentoComponent } from 'src/app/shared/card-depoimento/card-depoimento.component';
@@ -8,13 +8,16 @@ import { CardDepoimentoComponent } from 'src/app/shared/card-depoimento/card-dep
   templateUrl: './depoimentos.component.html',
   styleUrls: ['./depoimentos.component.scss'],
   imports: [CardDepoimentoComponent],
+  // TODO: This component has been partially migrated to be zoneless-compatible.
+  // After testing, this should be updated to ChangeDetectionStrategy.OnPush.
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class DepoimentosComponent {
-  depoimentos: Depoimento[] = [];
+  depoimentos = signal<Depoimento[]>([]);
   constructor(private service: DepoimentoService) {}
   ngOnInit(): void {
     this.service.listar().subscribe((res) => {
-      this.depoimentos = res;
+      this.depoimentos.set(res);
     });
   }
 }

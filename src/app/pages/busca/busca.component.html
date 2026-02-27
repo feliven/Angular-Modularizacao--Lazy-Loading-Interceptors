@@ -13,23 +13,23 @@
           <app-card variant="secondary">
             <app-passagem-destaque
               destacadaPor="Menor preço"
-              [passagem]="destaques?.maisBarata"
+              [passagem]="destaques()?.maisBarata"
             />
           </app-card>
           <app-card variant="primary">
             <app-passagem-destaque
               destacadaPor="Recomendado"
-              [passagem]="destaques?.sugerida"
+              [passagem]="destaques()?.sugerida"
             />
           </app-card>
           <app-card variant="secondary">
             <app-passagem-destaque
               destacadaPor="Menor tempo"
-              [passagem]="destaques?.maisRapida"
+              [passagem]="destaques()?.maisRapida"
             />
           </app-card>
         </div>
-        @for (passagem of passagens; track $index) {
+        @for (passagem of passagens(); track $index) {
           <app-passagem [passagem]="passagem"></app-passagem>
         }
       </div>

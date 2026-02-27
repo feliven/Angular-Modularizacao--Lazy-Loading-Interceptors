@@ -4,8 +4,8 @@
 >
 </app-banner>
 <app-form-base
-  [titulo]="titulo + nome"
-  [textoBotao]="textoBotao"
+  [titulo]="titulo() + nome()"
+  [textoBotao]="textoBotao()"
   [perfilComponent]="true"
   (sair)="deslogar()"
   (acaoClique)="atualizar()"

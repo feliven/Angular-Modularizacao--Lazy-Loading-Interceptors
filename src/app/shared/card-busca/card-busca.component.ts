@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { Promocao } from 'src/app/core/types/type';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -8,6 +8,9 @@ import { MatButtonModule } from '@angular/material/button';
   templateUrl: './card-busca.component.html',
   styleUrls: ['./card-busca.component.scss'],
   imports: [MatCardModule, MatButtonModule],
+  // TODO: This component has been partially migrated to be zoneless-compatible.
+  // After testing, this should be updated to ChangeDetectionStrategy.OnPush.
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class CardBuscaComponent {
   readonly promocao = input.required<Promocao>();

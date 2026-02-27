@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CadastroService } from 'src/app/core/services/cadastro.service';
 import { FormularioService } from 'src/app/core/services/formulario.service';
@@ -11,6 +11,9 @@ import { FormBaseComponent } from 'src/app/shared/form-base/form-base.component'
   templateUrl: './cadastro.component.html',
   styleUrls: ['./cadastro.component.scss'],
   imports: [BannerComponent, FormBaseComponent],
+  // TODO: This component has been partially migrated to be zoneless-compatible.
+  // After testing, this should be updated to ChangeDetectionStrategy.OnPush.
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class CadastroComponent {
   constructor(

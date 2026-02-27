@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 import { Companhia } from 'src/app/core/types/type';
@@ -13,6 +18,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
   templateUrl: './companhias.component.html',
   styleUrls: ['./companhias.component.scss'],
   imports: [LabelComponent, MatCheckboxModule],
+  // TODO: This component has been partially migrated to be zoneless-compatible.
+  // After testing, this should be updated to ChangeDetectionStrategy.OnPush.
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class CompanhiasComponent implements OnInit {
   companhias: Companhia[] = [];
@@ -23,6 +31,7 @@ export class CompanhiasComponent implements OnInit {
   constructor(
     private companhiaService: CompanhiaService,
     private formBuscaService: FormBuscaService,
+    private cdr: ChangeDetectorRef,
   ) {
     this.companhiasControl = this.formBuscaService.obterControle<
       number[] | null
@@ -31,10 +40,12 @@ export class CompanhiasComponent implements OnInit {
   ngOnInit(): void {
     this.companhiaService.listar().subscribe((res) => {
       this.companhias = res;
+      this.cdr.markForCheck();
     });
     this.companhiasControl.valueChanges.subscribe((value) => {
       if (!value) {
         this.selecionadas = [];
+        this.cdr.markForCheck();
       }
     });
   }
@@ -48,6 +59,7 @@ export class CompanhiasComponent implements OnInit {
     this.formBuscaService.formBusca.patchValue({
       companhias: this.selecionadas.map((comp) => Number(comp.id)),
     });
+    this.cdr.markForCheck();
   }
   companhiaSelecionada(companhia: Companhia): boolean {
     return this.selecionadas.includes(companhia);
