@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatChipsModule } from '@angular/material/chips';
 
@@ -19,6 +19,6 @@ import { MatButtonModule } from '@angular/material/button';
     MatButtonModule,
   ],
 })
-export class ModalComponent {
-  constructor(public formBuscaService: FormBuscaService) {}
+export class ModalComponent {  formBuscaService = inject(FormBuscaService);
+
 }

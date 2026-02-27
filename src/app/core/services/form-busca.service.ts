@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatChipSelectionChange } from '@angular/material/chips';
 import { MatDialog } from '@angular/material/dialog';
@@ -9,9 +9,11 @@ import { DadosBusca, UnidadeFederativa } from '../types/type';
   providedIn: 'root',
 })
 export class FormBuscaService {
+  private dialog = inject(MatDialog);
+
   formBusca: FormGroup;
 
-  constructor(private dialog: MatDialog) {
+  constructor() {
     const somenteIda = new FormControl(false, [Validators.required]);
     const dataVolta = new FormControl(null, [Validators.required]);
 

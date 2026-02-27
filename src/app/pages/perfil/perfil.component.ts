@@ -1,10 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  OnInit,
-  signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, signal, inject } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -24,6 +18,13 @@ import { FormBaseComponent } from 'src/app/shared/form-base/form-base.component'
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PerfilComponent implements OnInit {
+  private cadastroService = inject(CadastroService);
+  private tokenService = inject(TokenService);
+  private formularioService = inject(FormularioService);
+  private userService = inject(UserService);
+  private router = inject(Router);
+  private cdr = inject(ChangeDetectorRef);
+
   titulo = 'Olá, ';
   textoBotao = 'ATUALIZAR';
   perfilComponent = true;
@@ -32,15 +33,6 @@ export class PerfilComponent implements OnInit {
   form!: FormGroup<any> | null;
   token: string = '';
   nome = signal<string>('');
-
-  constructor(
-    private cadastroService: CadastroService,
-    private tokenService: TokenService,
-    private formularioService: FormularioService,
-    private userService: UserService,
-    private router: Router,
-    private cdr: ChangeDetectorRef,
-  ) {}
 
   ngOnInit() {
     this.token = this.tokenService.retornarToken();

@@ -1,5 +1,5 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { UserService } from './user.service';
@@ -12,12 +12,10 @@ interface AuthResponse {
   providedIn: 'root',
 })
 export class AutenticacaoService {
-  private apiUrl: string = environment.apiUrl;
+  private http = inject(HttpClient);
+  private userService = inject(UserService);
 
-  constructor(
-    private http: HttpClient,
-    private userService: UserService,
-  ) {}
+  private apiUrl: string = environment.apiUrl;
 
   autenticar(
     email: string,

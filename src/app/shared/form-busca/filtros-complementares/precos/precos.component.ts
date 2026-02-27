@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatSliderModule } from '@angular/material/slider';
@@ -20,14 +15,14 @@ import { LabelComponent } from '../label/label.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PrecosComponent implements OnInit {
+  passagemService = inject(PassagensService);
+  private formBuscaService = inject(FormBuscaService);
+  private cdr = inject(ChangeDetectorRef);
+
   precoMin: FormControl<number>;
   precoMax: FormControl<number>;
 
-  constructor(
-    public passagemService: PassagensService,
-    private formBuscaService: FormBuscaService,
-    private cdr: ChangeDetectorRef,
-  ) {
+  constructor() {
     this.precoMin = this.formBuscaService.obterControle<number>('precoMin');
     this.precoMax = this.formBuscaService.obterControle<number>('precoMax');
   }

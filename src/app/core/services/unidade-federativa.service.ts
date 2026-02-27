@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable, shareReplay } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { UnidadeFederativa } from '../types/type';
@@ -8,10 +8,10 @@ import { UnidadeFederativa } from '../types/type';
   providedIn: 'root',
 })
 export class UnidadeFederativaService {
+  private http = inject(HttpClient);
+
   private apiUrl: string = environment.apiUrl;
   private cache$?: Observable<UnidadeFederativa[]>;
-
-  constructor(private http: HttpClient) {}
 
   listar(): Observable<UnidadeFederativa[]> {
     if (!this.cache$) {

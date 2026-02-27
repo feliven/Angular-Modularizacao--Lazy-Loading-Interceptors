@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Companhia } from '../types/type';
@@ -8,9 +8,9 @@ import { Companhia } from '../types/type';
   providedIn: 'root',
 })
 export class CompanhiaService {
-  private apiUrl: string = environment.apiUrl;
+  private httpClient = inject(HttpClient);
 
-  constructor(private httpClient: HttpClient) {}
+  private apiUrl: string = environment.apiUrl;
 
   listar(): Observable<Companhia[]> {
     return this.httpClient.get<Companhia[]>(`${this.apiUrl}/companhias`);

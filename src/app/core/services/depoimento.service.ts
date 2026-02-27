@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Depoimento } from '../types/type';
@@ -8,9 +8,9 @@ import { Depoimento } from '../types/type';
   providedIn: 'root',
 })
 export class DepoimentoService {
-  private apiUrl: string = environment.apiUrl;
+  private http = inject(HttpClient);
 
-  constructor(private http: HttpClient) {}
+  private apiUrl: string = environment.apiUrl;
 
   listar(): Observable<Depoimento[]> {
     return this.http.get<Depoimento[]>(`${this.apiUrl}/depoimentos`);

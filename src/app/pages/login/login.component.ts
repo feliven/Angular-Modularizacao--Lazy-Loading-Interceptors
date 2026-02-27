@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   FormBuilder,
@@ -34,14 +29,12 @@ import { MatButtonModule } from '@angular/material/button';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent implements OnInit {
-  loginForm!: FormGroup;
+  private formBuilder = inject(FormBuilder);
+  private authService = inject(AutenticacaoService);
+  private router = inject(Router);
+  private cdr = inject(ChangeDetectorRef);
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private authService: AutenticacaoService,
-    private router: Router,
-    private cdr: ChangeDetectorRef,
-  ) {}
+  loginForm!: FormGroup;
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({

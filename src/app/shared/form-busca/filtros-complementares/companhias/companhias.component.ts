@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 import { Companhia } from 'src/app/core/types/type';
@@ -21,16 +16,15 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
   // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CompanhiasComponent implements OnInit {
+  private companhiaService = inject(CompanhiaService);
+  private formBuscaService = inject(FormBuscaService);
+
   companhias: Companhia[] = [];
   selecionadas: Companhia[] = [];
 
   companhiasControl: FormControl<number[] | null>;
 
-  constructor(
-    private companhiaService: CompanhiaService,
-    private formBuscaService: FormBuscaService,
-    // private cdr: ChangeDetectorRef,
-  ) {
+  constructor() {
     this.companhiasControl = this.formBuscaService.obterControle<
       number[] | null
     >('companhias');

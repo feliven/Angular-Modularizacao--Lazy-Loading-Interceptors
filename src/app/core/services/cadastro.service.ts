@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { PessoaUsuaria } from '../types/type';
@@ -8,8 +8,9 @@ import { PessoaUsuaria } from '../types/type';
   providedIn: 'root',
 })
 export class CadastroService {
+  private http = inject(HttpClient);
+
   private apiUrl: string = environment.apiUrl;
-  constructor(private http: HttpClient) {}
 
   cadastrar(pessoaUsuaria: PessoaUsuaria): Observable<PessoaUsuaria> {
     return this.http.post<PessoaUsuaria>(

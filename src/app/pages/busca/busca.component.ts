@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { take } from 'rxjs';
 
 import { DadosBusca, Destaques, Passagem } from 'src/app/core/types/type';
@@ -33,14 +28,12 @@ import { PassagemComponent } from 'src/app/shared/passagem/passagem.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BuscaComponent implements OnInit {
+  private passagensService = inject(PassagensService);
+  private formBuscaService = inject(FormBuscaService);
+  private cdr = inject(ChangeDetectorRef);
+
   passagens: Passagem[] = [];
   destaques?: Destaques;
-
-  constructor(
-    private passagensService: PassagensService,
-    private formBuscaService: FormBuscaService,
-    private cdr: ChangeDetectorRef,
-  ) {}
   ngOnInit(): void {
     const buscaPadrao: DadosBusca = {
       dataIda: new Date().toISOString(),

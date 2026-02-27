@@ -1,8 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { CadastroService } from 'src/app/core/services/cadastro.service';
 import { FormularioService } from 'src/app/core/services/formulario.service';
@@ -18,12 +14,11 @@ import { FormBaseComponent } from 'src/app/shared/form-base/form-base.component'
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CadastroComponent {
-  constructor(
-    private formularioService: FormularioService,
-    private cadastroService: CadastroService,
-    private router: Router,
-    private cdr: ChangeDetectorRef,
-  ) {}
+  private formularioService = inject(FormularioService);
+  private cadastroService = inject(CadastroService);
+  private router = inject(Router);
+  private cdr = inject(ChangeDetectorRef);
+
 
   cadastrar() {
     const formCadastro = this.formularioService.getCadastro();

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable, take } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { DadosBusca, Destaques, Passagem, Resultado } from '../types/type';
@@ -8,10 +8,11 @@ import { DadosBusca, Destaques, Passagem, Resultado } from '../types/type';
   providedIn: 'root',
 })
 export class PassagensService {
+  private httpClient = inject(HttpClient);
+
   apiUrl: string = environment.apiUrl;
   precoMin: number = 0;
   precoMax: number = 0;
-  constructor(private httpClient: HttpClient) {}
   getPassagens(search: DadosBusca): Observable<Resultado> {
     const params = this.converterParametroParaString(search);
     const obs = this.httpClient.get<Resultado>(
