@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideZonelessChangeDetection } from '@angular/core';
 
 import { DropdownUfComponent } from './dropdown-uf.component';
 
@@ -9,6 +10,7 @@ describe('DropdownUfComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [DropdownUfComponent],
+      providers: [provideZonelessChangeDetection()]
     });
     fixture = TestBed.createComponent(DropdownUfComponent);
     component = fixture.componentInstance;

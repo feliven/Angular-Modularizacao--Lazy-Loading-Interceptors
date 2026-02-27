@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideZonelessChangeDetection } from '@angular/core';
 
 import { CardBuscaComponent } from './card-busca.component';
 
@@ -9,6 +10,7 @@ describe('CardBuscaComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [CardBuscaComponent],
+      providers: [provideZonelessChangeDetection()]
     });
     fixture = TestBed.createComponent(CardBuscaComponent);
     component = fixture.componentInstance;

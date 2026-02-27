@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideZonelessChangeDetection } from '@angular/core';
 
 import { CadastroComponent } from './cadastro.component';
 
@@ -9,6 +10,7 @@ describe('CadastroComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [CadastroComponent],
+      providers: [provideZonelessChangeDetection()]
     });
     fixture = TestBed.createComponent(CadastroComponent);
     component = fixture.componentInstance;

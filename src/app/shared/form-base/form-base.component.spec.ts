@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideZonelessChangeDetection } from '@angular/core';
 
 import { FormBaseComponent } from './form-base.component';
 
@@ -9,6 +10,7 @@ describe('FormBaseComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [FormBaseComponent],
+      providers: [provideZonelessChangeDetection()]
     });
     fixture = TestBed.createComponent(FormBaseComponent);
     component = fixture.componentInstance;
