@@ -20,13 +20,18 @@ import {
 import { AutenticacaoInterceptor } from './app/core/interceptors/autenticacao.interceptor';
 import { errosInterceptor } from './app/core/erro/erros.interceptor';
 import { loadingInterceptor } from './app/core/interceptors/loading.interceptor';
+import { responseInterceptor } from './app/core/interceptors/response.interceptor';
 
 bootstrapApplication(AppComponent, {
   providers: [
     provideZonelessChangeDetection(),
     provideRouter(routes),
     provideHttpClient(
-      withInterceptors([errosInterceptor, loadingInterceptor]),
+      withInterceptors([
+        errosInterceptor,
+        loadingInterceptor,
+        responseInterceptor,
+      ]),
       withInterceptorsFromDi(),
     ),
     {
