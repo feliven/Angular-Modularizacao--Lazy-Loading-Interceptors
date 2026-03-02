@@ -1,3 +1,15 @@
 <app-header></app-header>
+
+@if (isLoading()) {
+  <div
+    class="loading-overlay"
+    role="status"
+    aria-live="polite"
+    aria-label="Loading page"
+  >
+    <div class="loading-spinner" aria-hidden="true"></div>
+  </div>
+}
+
 <router-outlet></router-outlet>
 <app-footer></app-footer>

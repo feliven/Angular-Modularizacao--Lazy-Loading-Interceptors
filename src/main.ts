@@ -19,13 +19,14 @@ import {
 } from '@angular/common/http';
 import { AutenticacaoInterceptor } from './app/core/interceptors/autenticacao.interceptor';
 import { errosInterceptor } from './app/core/erro/erros.interceptor';
+import { loadingInterceptor } from './app/core/interceptors/loading.interceptor';
 
 bootstrapApplication(AppComponent, {
   providers: [
     provideZonelessChangeDetection(),
     provideRouter(routes),
     provideHttpClient(
-      withInterceptors([errosInterceptor]),
+      withInterceptors([errosInterceptor, loadingInterceptor]),
       withInterceptorsFromDi(),
     ),
     {
