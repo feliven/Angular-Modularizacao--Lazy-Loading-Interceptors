@@ -1,4 +1,11 @@
-import { Component, output } from '@angular/core';
+import {
+  Component,
+  output,
+  inject,
+  ChangeDetectionStrategy,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { DadosBusca } from 'src/app/core/types/type';
@@ -32,10 +39,34 @@ import { MatButtonModule } from '@angular/material/button';
     MatButtonModule,
   ],
   providers: [provideNativeDateAdapter()],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FormBuscaComponent {
+export class FormBuscaComponent implements OnInit {
+  formBuscaService = inject(FormBuscaService);
+
   realizarBusca = output<DadosBusca>();
-  constructor(public formBuscaService: FormBuscaService) {}
+
+  descricaoPassageiros = signal<string>('');
+  classePassagem = signal<string>('');
+
+  ngOnInit(): void {
+    // initial value
+    this.descricaoPassageiros.set(
+      this.formBuscaService.getDescricaoPassageiros(),
+    );
+    this.classePassagem.set(this.formBuscaService.obterControle('tipo').value);
+
+    // update when form changes (avoids calling a method from template)
+    this.formBuscaService.formBusca.valueChanges.subscribe(() => {
+      this.descricaoPassageiros.set(
+        this.formBuscaService.getDescricaoPassageiros(),
+      );
+
+      this.classePassagem.set(
+        this.formBuscaService.obterControle('tipo').value,
+      );
+    });
+  }
 
   buscar() {
     if (this.formBuscaService.formEstaValido) {

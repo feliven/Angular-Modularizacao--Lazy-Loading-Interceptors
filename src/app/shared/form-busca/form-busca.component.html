@@ -12,13 +12,13 @@
       <mat-chip (click)="formBuscaService.openDialog()">
         <div class="inner">
           <mat-icon>check</mat-icon>
-          {{ formBuscaService.getDescricaoPassageiros() }}
+          {{ descricaoPassageiros() }}
         </div>
       </mat-chip>
       <mat-chip (click)="formBuscaService.openDialog()">
         <div class="inner">
           <mat-icon>check</mat-icon>
-          {{ formBuscaService.obterControle("tipo").value }}
+          {{ classePassagem() }}
         </div>
       </mat-chip>
     </div>
