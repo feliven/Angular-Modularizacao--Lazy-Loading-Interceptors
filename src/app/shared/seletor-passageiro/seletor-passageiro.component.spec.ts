@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { describe, expect, beforeEach, it } from 'vitest';
 import { SeletorPassageiroComponent } from './seletor-passageiro.component';
 
 describe('SeletorPassageiroComponent', () => {
