@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 
 import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component';
 
@@ -8,9 +9,9 @@ describe('PaginaNaoEncontradaComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PaginaNaoEncontradaComponent]
-    })
-    .compileComponents();
+      imports: [PaginaNaoEncontradaComponent],
+      providers: [provideRouter([])],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(PaginaNaoEncontradaComponent);
     component = fixture.componentInstance;
