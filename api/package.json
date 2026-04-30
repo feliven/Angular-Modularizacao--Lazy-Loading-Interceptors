@@ -21,8 +21,8 @@
     "seed": "ts-node ./node_modules/typeorm-extension/bin/cli.cjs seed"
   },
   "dependencies": {
-    "@nestjs/common": "^9.0.0",
-    "@nestjs/core": "^9.0.0",
+    "@nestjs/common": "^11.1.19",
+    "@nestjs/core": "^11.1.19",
     "@nestjs/jwt": "^10.0.3",
     "@nestjs/mapped-types": "^1.2.2",
     "@nestjs/platform-express": "^9.0.0",
